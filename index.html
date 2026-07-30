@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madhav Pande — Strategy &amp; Analytics</title>
+<style>
+  :root{
+    --ink:#1c2321;
+    --ink-soft:#3c4640;
+    --paper:#eae7da;
+    --paper-raised:#dfdbc9;
+    --paper-line: rgba(28,35,33,0.14);
+    --brass:#8a6a28;
+    --brass-strong:#6e551f;
+    --forest:#35493d;
+    --shadow: rgba(28,35,33,0.08);
+    --font-serif: "Iowan Old Style","Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --font-sans: -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "SF Mono", "Cascadia Code", "Consolas", "Liberation Mono", monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#e9e6d8;
+      --ink-soft:#b9b6a7;
+      --paper:#131a16;
+      --paper-raised:#1b2420;
+      --paper-line: rgba(233,230,216,0.14);
+      --brass:#cda75a;
+      --brass-strong:#e2bd74;
+      --forest:#89a795;
+      --shadow: rgba(0,0,0,0.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e9e6d8;
+    --ink-soft:#b9b6a7;
+    --paper:#131a16;
+    --paper-raised:#1b2420;
+    --paper-line: rgba(233,230,216,0.14);
+    --brass:#cda75a;
+    --brass-strong:#e2bd74;
+    --forest:#89a795;
+    --shadow: rgba(0,0,0,0.35);
+  }
+  :root[data-theme="light"]{
+    --ink:#1c2321;
+    --ink-soft:#3c4640;
+    --paper:#eae7da;
+    --paper-raised:#dfdbc9;
+    --paper-line: rgba(28,35,33,0.14);
+    --brass:#8a6a28;
+    --brass-strong:#6e551f;
+    --forest:#35493d;
+    --shadow: rgba(28,35,33,0.08);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; --mx: 50%; --my: 20%; }
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 1px 1px, var(--paper-line) 1px, transparent 1px) 0 0 / 26px 26px,
+      var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+  body::before{
+    content:"";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(560px circle at var(--mx) var(--my), color-mix(in srgb, var(--brass) 16%, transparent), transparent 68%);
+    transition: background-position .1s linear;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  a{ color: inherit; }
+  h1,h2,h3{ font-family: var(--font-serif); font-weight: 600; text-wrap: balance; margin:0; }
+  .num{ font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+  .wrap{ max-width: 920px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position: sticky; top:0; z-index: 50;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--paper-line);
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 28px;
+    max-width: 920px; margin:0 auto;
+  }
+  .brand{
+    font-family: var(--font-serif); font-size: 1.05rem; font-weight:700; letter-spacing: 0.02em;
+    text-decoration: none; color: var(--ink); transition: opacity .2s ease;
+  }
+  .brand:hover{ opacity: 0.75; }
+  .brand .dot{ color: var(--brass); }
+  nav.links{ display:flex; gap: 22px; }
+  nav.links a{
+    text-decoration:none; font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-soft); font-family: var(--font-mono);
+    padding-bottom: 3px; border-bottom: 1px solid transparent;
+    transition: color .2s ease, border-color .2s ease;
+  }
+  nav.links a:hover, nav.links a.active{ color: var(--ink); border-color: var(--brass); }
+  nav.links a:focus-visible, a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--brass); outline-offset: 2px;
+  }
+  @media (max-width: 640px){ nav.links{ gap: 14px; } nav.links a{ font-size: 0.72rem; } }
+
+  /* ---------- Hero ---------- */
+  .hero{ padding: 92px 0 60px; }
+  .eyebrow{
+    font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--brass-strong); margin-bottom: 18px; display:block;
+  }
+  .hero h1{ font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.05; }
+  .hero .role{
+    font-family: var(--font-sans); font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+    color: var(--ink-soft); margin-top: 14px; max-width: 60ch;
+  }
+  .hero .lede{ margin-top: 18px; max-width: 62ch; color: var(--ink-soft); font-size: 1rem; }
+
+  /* ---------- Sections ---------- */
+  section{ padding: 64px 0; border-top: 1px solid var(--paper-line); }
+  .tag{
+    font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--brass-strong); display:block; margin-bottom: 16px;
+  }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; gap: 24px; margin-bottom: 30px; flex-wrap: wrap; }
+  .section-head h2{ font-size: clamp(1.5rem, 3vw, 1.9rem); }
+
+  /* reveal */
+  .reveal{ opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ---------- Profile ---------- */
+  .profile p{ max-width: 68ch; color: var(--ink-soft); font-size: 1.02rem; }
+  .profile p + p{ margin-top: 14px; }
+  blockquote{
+    margin: 26px 0 0; padding-left: 20px; border-left: 2px solid var(--brass);
+    font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--ink); max-width: 58ch;
+  }
+
+  /* ---------- Capabilities ---------- */
+  .cap-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 34px; }
+  .cap-group h3{
+    font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 600; color: var(--ink-soft); margin-bottom: 14px;
+  }
+  .chip-list{ display:flex; flex-wrap:wrap; gap: 8px; }
+  .chip{
+    font-size: 0.86rem; padding: 6px 12px; border: 1px solid var(--paper-line);
+    color: var(--ink); background: var(--paper-raised);
+    transition: border-color .2s ease, transform .15s ease;
+  }
+  .chip:hover{ border-color: var(--brass); transform: translateY(-1px); }
+  @media (max-width: 720px){ .cap-grid{ grid-template-columns: 1fr; gap: 26px; } }
+
+  /* ---------- Record (experience accordion) ---------- */
+  .entry{ border-bottom: 1px solid var(--paper-line); }
+  .entry:first-child{ border-top: 1px solid var(--paper-line); }
+  .entry-head{
+    all: unset; box-sizing: border-box; cursor: pointer; width:100%;
+    display:flex; justify-content: space-between; align-items: flex-start; gap: 18px;
+    padding: 20px 0;
+  }
+  .entry-head:hover .role-title{ color: var(--brass-strong); }
+  .entry-title-block{ display:flex; flex-direction:column; gap: 4px; }
+  .role-title{ font-family: var(--font-serif); font-size: 1.15rem; transition: color .2s ease; }
+  .org-line{ font-size: 0.9rem; color: var(--ink-soft); }
+  .entry-right{ display:flex; align-items:center; gap: 14px; flex-shrink:0; }
+  .dates{ font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); white-space: nowrap; padding-top: 3px;}
+  .chevron{ width: 10px; height:10px; border-right: 1.5px solid var(--ink-soft); border-bottom: 1.5px solid var(--ink-soft); transform: rotate(45deg); transition: transform .25s ease; margin-top: 4px;}
+  .entry[data-open="true"] .chevron{ transform: rotate(225deg); margin-top: 8px; }
+  .entry-body{ overflow:hidden; max-height:0; transition: max-height .35s ease; }
+  .entry[data-open="true"] .entry-body{ max-height: 900px; }
+  .entry-body-inner{ padding: 0 0 26px; }
+  .initiative-label{
+    font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--brass-strong); margin: 14px 0 8px;
+  }
+  .initiative-label:first-child{ margin-top:0; }
+  ul.bullets{ margin: 0; padding-left: 18px; color: var(--ink-soft); }
+  ul.bullets li{ margin-bottom: 7px; font-size: 0.94rem; }
+  ul.bullets li:last-child{ margin-bottom:0; }
+  ul.bullets b{ color: var(--ink); font-weight: 600; }
+
+  /* ---------- Initiatives (impact cards) ---------- */
+  .init-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--paper-line); border: 1px solid var(--paper-line); }
+  .init-card{ background: var(--paper); padding: 26px 22px; display:flex; flex-direction:column; }
+  .init-metric{ font-family: var(--font-mono); font-size: 1.7rem; font-weight:600; color: var(--brass-strong); }
+  .init-metric-label{ font-size: 0.72rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-soft); margin-top: 4px; }
+  .init-card h3{ font-size: 1.02rem; margin-top: 18px; }
+  .init-card p{ font-size: 0.9rem; color: var(--ink-soft); margin-top: 10px; flex-grow:1; }
+  @media (max-width: 780px){ .init-grid{ grid-template-columns: 1fr; } }
+
+  /* ---------- Credentials ---------- */
+  .cred-grid{ display:grid; grid-template-columns: 1.1fr 1fr; gap: 46px; }
+  .table-scroll{ overflow-x: auto; }
+  table.edu{ border-collapse: collapse; width:100%; font-size: 0.88rem; }
+  table.edu th{
+    text-align:left; font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--ink-soft); font-weight:500; padding-bottom: 10px; border-bottom: 1px solid var(--paper-line);
+  }
+  table.edu td{ padding: 12px 14px 12px 0; border-bottom: 1px solid var(--paper-line); vertical-align: top; }
+  table.edu td.score{ font-family: var(--font-mono); text-align:right; white-space:nowrap; }
+  table.edu tr:last-child td{ border-bottom:none; }
+
+  .cred-list{ list-style:none; margin:0; padding:0; }
+  .cred-list li{
+    display:flex; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--paper-line); font-size: 0.88rem; color: var(--ink-soft);
+  }
+  .cred-list li:last-child{ border-bottom:none; }
+  .cred-year{ font-family: var(--font-mono); color: var(--brass-strong); flex-shrink:0; font-size: 0.82rem; padding-top: 1px;}
+  .sub-tag{ font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); margin: 22px 0 10px; }
+  .sub-tag:first-child{ margin-top:0; }
+  @media (max-width: 780px){ .cred-grid{ grid-template-columns: 1fr; gap: 36px; } }
+
+  /* ---------- Contact ---------- */
+  .contact-grid{ display:grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--paper-line); border-left: 1px solid var(--paper-line); }
+  .contact-item{
+    border-right: 1px solid var(--paper-line); border-bottom: 1px solid var(--paper-line);
+    padding: 22px 20px; display:flex; flex-direction:column; gap: 10px; text-decoration:none; color:var(--ink);
+    transition: background .2s ease;
+  }
+  .contact-item:hover{ background: var(--paper-raised); }
+  .contact-item .label{ font-family: var(--font-mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-soft); }
+  .contact-item .value{ font-size: 0.98rem; }
+  .contact-item button.copy{
+    all: unset; cursor:pointer; font-size: 0.98rem; text-align:left;
+  }
+  @media (max-width: 720px){ .contact-grid{ grid-template-columns: 1fr; } }
+
+  footer{ padding: 34px 0 50px; }
+  footer p{ font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-soft); text-align:center; }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-row">
+    <a class="brand" href="#top">MADHAV PANDE<span class="dot">.</span></a>
+    <nav class="links" id="navLinks">
+      <a href="#profile" data-target="profile">Profile</a>
+      <a href="#capabilities" data-target="capabilities">Capabilities</a>
+      <a href="#initiatives" data-target="initiatives">Impact</a>
+      <a href="#experience" data-target="experience">Experience</a>
+      <a href="#credentials" data-target="credentials">Credentials</a>
+      <a href="#contact" data-target="contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" id="top">
+    <span class="eyebrow">Strategy &amp; Analytics</span>
+    <h1>Madhav Pande</h1>
+    <p class="role">Strategy and analytics professional turning complex data into decisions people can act on.</p>
+    <p class="lede">Three years across commercial forecasting for global pharma clients and large-scale public-sector technology programs — different rooms, same job: get the numbers right, understand what's happening on the ground, and communicate both clearly.</p>
+  </section>
+
+  <section class="profile reveal" id="profile">
+    <span class="tag">Profile</span>
+    <p>Strategy and analytics professional with 3+ years of experience across commercial forecasting, large-scale government technology programs, and cross-functional stakeholder management. Built revenue forecast models for $1B+ pharma portfolios at Viscadia and led multi-state digital agriculture rollouts at EY, scaling products from pilot to 20M+ users.</p>
+    <p>Strong in data analysis, executive communication, and translating field insights into actionable strategy. Fast-tracked promotions at EY — intern to consultant in under two years.</p>
+    <blockquote>Comfortable moving between an Excel forecast model built for a Fortune 500 board and a village-level field visit uncovering a data-cleaning gap — the two inform each other.</blockquote>
+  </section>
+
+  <section class="capabilities reveal" id="capabilities">
+    <span class="tag">Capabilities</span>
+    <div class="cap-grid">
+      <div class="cap-group">
+        <h3>Analytics &amp; Tools</h3>
+        <div class="chip-list">
+          <span class="chip">SQL</span><span class="chip">Advanced Excel</span><span class="chip">VBA</span>
+          <span class="chip">Data Analysis</span><span class="chip">Revenue Forecasting</span>
+          <span class="chip">Financial Modeling</span><span class="chip">Tableau</span><span class="chip">PowerPoint</span>
+        </div>
+      </div>
+      <div class="cap-group">
+        <h3>Strategy &amp; Product</h3>
+        <div class="chip-list">
+          <span class="chip">Market Sizing</span><span class="chip">Competitive Analysis</span>
+          <span class="chip">Commercial Strategy</span><span class="chip">UAT</span>
+          <span class="chip">Process Improvement</span><span class="chip">Roadmapping</span>
+        </div>
+      </div>
+      <div class="cap-group">
+        <h3>Communication &amp; Leadership</h3>
+        <div class="chip-list">
+          <span class="chip">Cross-Functional Coordination</span><span class="chip">Stakeholder Management</span>
+          <span class="chip">Executive Communication</span><span class="chip">Team Leadership</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="initiatives reveal" id="initiatives">
+    <div class="section-head"><h2>Impact at Scale</h2></div>
+    <div class="init-grid">
+      <div class="init-card">
+        <span class="init-metric">$1B+</span>
+        <span class="init-metric-label">Drug Portfolios Modeled</span>
+        <h3>Revenue Forecast Models</h3>
+        <p>Excel and VBA models for specialty drug portfolios, integrating patient journey and competitive analysis — plus a reverse-forecasting mode that back-solves the inputs needed to hit a client's target.</p>
+      </div>
+      <div class="init-card">
+        <span class="init-metric">14</span>
+        <span class="init-metric-label">States Rolled Out</span>
+        <h3>Digital Crop Survey</h3>
+        <p>Coordinated a multi-state rollout across field and technical teams, catching land-misclassification issues on-site and tightening the data-cleaning rules that followed.</p>
+      </div>
+      <div class="init-card">
+        <span class="init-metric">20M+</span>
+        <span class="init-metric-label">Farmers in 100 Days</span>
+        <h3>State Farmers' Database</h3>
+        <p>Took the registry from concept to a 7-state pilot in 100 days, with UAT across 5 villages exposing consent and verification gaps before they reached national scale.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="record reveal" id="experience">
+    <div class="section-head"><h2>Work Experience</h2></div>
+
+    <div class="entry" data-open="true">
+      <button class="entry-head" aria-expanded="true">
+        <div class="entry-title-block">
+          <span class="role-title">Associate — Viscadia Pvt Ltd</span>
+          <span class="org-line">Commercial Strategy &amp; Revenue Forecasting · Gurugram</span>
+        </div>
+        <div class="entry-right"><span class="dates">Mar 2025 — Present</span><span class="chevron"></span></div>
+      </button>
+      <div class="entry-body">
+        <div class="entry-body-inner">
+          <ul class="bullets">
+            <li>Enabled Fortune 500 pharma clients to evaluate growth scenarios and align strategies through <b>data-driven forecasting</b></li>
+            <li>Built Excel and VBA forecast models for <b>$1B+ specialty drug portfolios</b>, integrating patient journey and competition analysis</li>
+            <li>Developed a <b>reverse-forecasting functionality</b> to identify input adjustments required to achieve client-defined revenue targets</li>
+            <li>Advised clients on growth outlook, validated commercial assumptions, and aligned forecasts with data-backed expectations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="entry" data-open="false">
+      <button class="entry-head" aria-expanded="false">
+        <div class="entry-title-block">
+          <span class="role-title">Consultant — Ernst &amp; Young LLP</span>
+          <span class="org-line">Digital Crop Survey &amp; State Farmers' Database, Agri Stack · Gurugram</span>
+        </div>
+        <div class="entry-right"><span class="dates">Jul 2023 — Feb 2025</span><span class="chevron"></span></div>
+      </button>
+      <div class="entry-body">
+        <div class="entry-body-inner">
+          <div class="initiative-label">Digital Crop Survey</div>
+          <ul class="bullets">
+            <li>Led <b>multi-state rollout</b>, coordinated among stakeholders, and presented field insights to senior officials to support decision-making</li>
+            <li>Reduced coordination delays and served as the primary interface across on-field and tech teams</li>
+            <li>Improved data accuracy by identifying land misclassification issues during field visits and strengthening data-cleaning rules</li>
+            <li>Expanded state adoption by onboarding government officials across multiple levels, contributing to rollout across <b>14 states</b></li>
+          </ul>
+          <div class="initiative-label">State Farmers' Database</div>
+          <ul class="bullets">
+            <li>Spearheaded rollout, scaled from concept to <b>20M+ farmers within 100 days</b> across a 7-state pilot</li>
+            <li>Expanded state adoption by presenting field insights to secretaries and senior officials through conferences and state visits</li>
+            <li>Conducted <b>UAT across 5 villages</b>, identifying gaps in Consent and Field Verification workflows</li>
+            <li>Reduced processing time from 1 village per day to 1 district in 1–2 days; led a 5-sub-district POC after UAT fixes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="entry" data-open="false">
+      <button class="entry-head" aria-expanded="false">
+        <div class="entry-title-block">
+          <span class="role-title">Intern — Ernst &amp; Young LLP</span>
+          <span class="org-line">Agri Stack · Gurugram</span>
+        </div>
+        <div class="entry-right"><span class="dates">Jan 2023 — Jul 2023</span><span class="chevron"></span></div>
+      </button>
+      <div class="entry-body">
+        <div class="entry-body-inner">
+          <ul class="bullets">
+            <li>Contributed to conceptualization documentation of the Agri Stack, including architecture, blueprint, and three core registries</li>
+            <li>Standardized state-wise ROR datasets; designed rule-based templates for unified Farmer Registry integration across states</li>
+            <li>Designed wireframes, process flows, and software specifications, enabling smoother development of the State Farmers' Database</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="credentials reveal" id="credentials">
+    <div class="section-head"><h2>Credentials</h2></div>
+    <div class="cred-grid">
+      <div>
+        <span class="tag">Education</span>
+        <div class="table-scroll">
+          <table class="edu">
+            <thead><tr><th>Examination</th><th>Institute</th><th style="text-align:right">Score</th></tr></thead>
+            <tbody>
+              <tr><td>B.E., Electronics &amp; Computer Engineering</td><td>Thapar Institute of Engineering &amp; Technology, Patiala · 2023</td><td class="score">8.19 / 10.00</td></tr>
+              <tr><td>Class 12th, CBSE</td><td>The British School, Chandigarh · 2019</td><td class="score">90.80%</td></tr>
+              <tr><td>Class 10th, CBSE</td><td>DSB International Public School, Rishikesh · 2017</td><td class="score">9.20 / 10.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="sub-tag">Volunteering &amp; Leadership</div>
+        <ul class="cred-list">
+          <li><span class="cred-year">2025</span><span>CSR volunteer: distributed stationery kits and ran day-long interactive events at NGO-driven schools, Viscadia</span></li>
+          <li><span class="cred-year">2025</span><span>Curated a full-day engagement event, organizing and managing multiple interactive activities, Viscadia</span></li>
+          <li><span class="cred-year">2024</span><span>Managed venue scouting, logistics, hospitality, and coordination for annual offsite events, EY LLP &amp; Viscadia</span></li>
+          <li><span class="cred-year">2021</span><span>Volunteered with underprivileged children through teaching and COVID-19 fundraising, Har Hath Kalam</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact reveal" id="contact">
+    <div class="section-head"><h2>Contact</h2></div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <span class="label">Email</span>
+        <button class="copy value" id="copyEmail" data-full="madhavpande514@gmail.com">madhavpande514@gmail.com</button>
+      </div>
+      <a class="contact-item" href="tel:+917087510766">
+        <span class="label">Phone</span>
+        <span class="value">+91 70875 10766</span>
+      </a>
+      <a class="contact-item" href="https://linkedin.com/in/madhavpande" target="_blank" rel="noopener noreferrer">
+        <span class="label">LinkedIn</span>
+        <span class="value">linkedin.com/in/madhavpande</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>MADHAV PANDE — STRATEGY &amp; ANALYTICS — UPDATED 2026</p>
+  </footer>
+</main>
+
+<script>
+  // cursor-follow glow
+  const reduceMotionForGlow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+  if (!reduceMotionForGlow && hasFinePointer) {
+    let pendingX = null, pendingY = null, raf = null;
+    function applyGlow() {
+      document.documentElement.style.setProperty('--mx', pendingX + 'px');
+      document.documentElement.style.setProperty('--my', pendingY + 'px');
+      raf = null;
+    }
+    window.addEventListener('mousemove', (e) => {
+      pendingX = e.clientX;
+      pendingY = e.clientY;
+      if (!raf) raf = requestAnimationFrame(applyGlow);
+    });
+  }
+
+  // scrollspy
+  const navLinks = Array.from(document.querySelectorAll('#navLinks a'));
+  const sections = navLinks.map(a => document.getElementById(a.dataset.target)).filter(Boolean);
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const link = navLinks.find(a => a.dataset.target === entry.target.id);
+      if (!link) return;
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => spy.observe(s));
+
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObs.observe(el));
+
+  // accordion
+  document.querySelectorAll('.entry-head').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const entry = btn.closest('.entry');
+      const isOpen = entry.dataset.open === 'true';
+      entry.dataset.open = String(!isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+  // copy email
+  const copyBtn = document.getElementById('copyEmail');
+  copyBtn.addEventListener('click', () => {
+    const text = copyBtn.dataset.full;
+    const original = copyBtn.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      copyBtn.textContent = 'Copied to clipboard';
+      setTimeout(() => { copyBtn.textContent = original; }, 1600);
+    }).catch(() => {});
+  });
+</script>
+</body>
+</html>
