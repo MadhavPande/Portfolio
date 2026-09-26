@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,9 +25,29 @@ const cabinet = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Madhav Pande | Strategy and Analytics",
-  description:
-    "Strategy and analytics professional. Revenue forecasting for $1B+ pharma portfolios and multi-state government technology rollouts.",
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  applicationName: "Madhav Pande",
+  authors: [{ name: "Madhav Pande", url: SITE_URL }],
+  creator: "Madhav Pande",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "profile",
+    firstName: "Madhav",
+    lastName: "Pande",
+    url: "/",
+    siteName: "Madhav Pande",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

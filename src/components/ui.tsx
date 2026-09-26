@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 
-export const EMAIL = "madhavpande514@gmail.com";
-export const LINKEDIN = "https://www.linkedin.com/in/madhavpande";
+export { EMAIL, LINKEDIN } from "@/lib/site";
 
 export function Container({ children, className = "" }: { children: ReactNode; className?: string }) {
   return <div className={`mx-auto w-full max-w-[1320px] px-4 md:px-10 ${className}`}>{children}</div>;
