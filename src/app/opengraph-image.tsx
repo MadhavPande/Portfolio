@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
-export const alt = "Madhav Pande, strategy and analytics professional";
+export const alt = "Madhav Pande, strategy, analytics, and consulting professional";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -28,7 +28,7 @@ export default async function Image() {
       >
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 30, fontWeight: 500, color: "#565961", letterSpacing: 1 }}>
-            Strategy and analytics
+            Strategy, analytics, and consulting
           </div>
           <div style={{ fontSize: 128, fontWeight: 800, letterSpacing: -4, lineHeight: 1, marginTop: 24 }}>
             Madhav Pande

@@ -14,7 +14,7 @@ const person = {
   name: "Madhav Pande",
   url: SITE_URL,
   email: `mailto:${EMAIL}`,
-  jobTitle: "Strategy and Analytics Professional",
+  jobTitle: "Strategy, Analytics, and Consulting Professional",
   description: SITE_DESCRIPTION,
   sameAs: [LINKEDIN],
   alumniOf: [

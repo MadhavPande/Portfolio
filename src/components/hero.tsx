@@ -21,8 +21,8 @@ export function Hero() {
           </Reveal>
           <Reveal delay={0.12}>
             <p className="mt-7 max-w-[40ch] text-lg leading-relaxed text-muted md:text-xl">
-              Strategy and analytics professional. 3+ years building $1B+ pharma forecasts and
-              scaling government tech to 20M+ users.
+              Strategy, analytics, and consulting professional. 3+ years advising on $1B+ pharma
+              forecasts and leading government tech rollouts to 20M+ users.
             </p>
           </Reveal>
           <Reveal delay={0.18}>

@@ -15,7 +15,7 @@ const roles = [
     role: "Consultant",
     dates: "Jul 2023 - Feb 2025",
     summary:
-      "Agri Stack, India's digital agriculture program. I ran multi-state rollouts of two products, working between state officials, field teams and engineering.",
+      "As a Consultant on Agri Stack, India's digital agriculture program, I advised state officials and coordinated between field teams and engineering to run multi-state rollouts of two products.",
     projects: ["State Farmers' Database", "Digital Crop Survey"],
   },
 ];
