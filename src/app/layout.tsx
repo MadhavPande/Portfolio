@@ -34,7 +34,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${cabinet.variable} antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        {/* Apply a saved theme before first paint so dark-mode visitors never see a light flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem("theme")==="dark")document.documentElement.dataset.theme="dark"}catch(e){}`,
+          }}
+        />
+      </head>
       <body className="min-h-[100dvh] font-sans">{children}</body>
     </html>
   );
