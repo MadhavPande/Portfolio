@@ -1,7 +1,8 @@
 import { EnvelopeSimple, ArrowDown } from "@phosphor-icons/react/ssr";
 import { CareerTimeline } from "./career-timeline";
 import { Reveal } from "./reveal";
-import { Button, Container, EMAIL } from "./ui";
+import { EmailLink } from "./email-link";
+import { Button, buttonClass, Container } from "./ui";
 
 export function Hero() {
   return (
@@ -26,10 +27,10 @@ export function Hero() {
           </Reveal>
           <Reveal delay={0.18}>
             <div className="mt-10 flex flex-wrap gap-3">
-              <Button href={`mailto:${EMAIL}`}>
+              <EmailLink className={buttonClass("primary")}>
                 <EnvelopeSimple size={18} weight="bold" />
                 Email me
-              </Button>
+              </EmailLink>
               <Button href="#work" variant="secondary">
                 See my work
                 <ArrowDown

@@ -14,18 +14,21 @@ type ButtonProps = {
   download?: boolean;
 };
 
-export function Button({ href, children, variant = "primary", external, download }: ButtonProps) {
+export function buttonClass(variant: "primary" | "secondary" = "primary") {
   const base =
     "group inline-flex items-center gap-2 whitespace-nowrap rounded-full px-6 py-3 text-[15px] font-medium transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent";
   const styles =
     variant === "primary"
       ? "bg-accent text-on-accent hover:brightness-110"
       : "border border-fg/25 text-fg hover:border-fg";
+  return `${base} ${styles}`;
+}
 
+export function Button({ href, children, variant = "primary", external, download }: ButtonProps) {
   return (
     <a
       href={href}
-      className={`${base} ${styles}`}
+      className={buttonClass(variant)}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       {...(download ? { download: true } : {})}
     >

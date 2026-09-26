@@ -1,5 +1,6 @@
 import { ArrowUpRight, FileArrowDown, LinkedinLogo } from "@phosphor-icons/react/ssr";
 import { Reveal } from "./reveal";
+import { EmailLink } from "./email-link";
 import { Container, EMAIL, LINKEDIN } from "./ui";
 
 const secondary = [
@@ -18,8 +19,7 @@ export function Contact() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          <a
-            href={`mailto:${EMAIL}`}
+          <EmailLink
             className="group mt-12 inline-flex max-w-full items-center gap-3 font-display text-[clamp(1.5rem,4.2vw,3.75rem)] font-bold tracking-[-0.02em] text-accent-ink md:mt-16"
           >
             <span className="break-all bg-[linear-gradient(currentColor,currentColor)] bg-[length:100%_2px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size] duration-500 group-hover:bg-[length:0%_2px] sm:break-normal">
@@ -29,7 +29,7 @@ export function Contact() {
               weight="bold"
               className="size-[0.8em] shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
             />
-          </a>
+          </EmailLink>
         </Reveal>
 
         <Reveal delay={0.14}>

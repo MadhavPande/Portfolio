@@ -1,5 +1,6 @@
 import { ThemeToggle } from "./theme-toggle";
-import { Container, EMAIL } from "./ui";
+import { EmailLink } from "./email-link";
+import { Container } from "./ui";
 
 const links = [
   { href: "#experience", label: "Experience" },
@@ -29,12 +30,9 @@ export function Nav() {
             ))}
           </ul>
           <ThemeToggle />
-          <a
-            href={`mailto:${EMAIL}`}
-            className="whitespace-nowrap rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg transition duration-300 hover:-translate-y-0.5 active:scale-[0.98]"
-          >
+          <EmailLink className="whitespace-nowrap rounded-full bg-fg px-4 py-2 text-sm font-medium text-bg transition duration-300 hover:-translate-y-0.5 active:scale-[0.98]">
             Email me
-          </a>
+          </EmailLink>
         </nav>
       </Container>
     </header>

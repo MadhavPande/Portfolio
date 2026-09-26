@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Z-index scale: nav = 40. Nothing else is layered. */
+/* Z-index scale: nav = 40, toast = 50. */
 
 :root {
   --bg: #f4f4f5;
