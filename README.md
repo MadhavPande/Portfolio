@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Madhav Pande | Portfolio
 
-## Getting Started
+Personal portfolio of Madhav Pande, a strategy and analytics professional working in pharma revenue forecasting and large-scale government technology programs.
 
-First, run the development server:
+**Live site:** https://madhavpande.netlify.app
+
+## What's on the site
+
+- **Hero** with a career timeline: EY (Associate Consultant, promoted to Consultant) and Viscadia (Associate)
+- **Experience** summary for Viscadia and EY
+- **Work Experience** highlights: $1B+ pharma forecast models, reverse forecasting, the State Farmers' Database (20M+ users in 100 days), field UAT, and the Digital Crop Survey across 14 states
+- **Education** (Thapar Institute, GMAT Focus 705) and toolkit
+- **Beyond the desk:** leadership, volunteering and recognition
+- **Contact:** email, LinkedIn and a downloadable resume
+
+Light theme by default, with a dark mode toggle.
+
+## Built with
+
+- [Next.js](https://nextjs.org) (App Router, statically generated) and TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [Motion](https://motion.dev) for entrance animations (respects reduced-motion settings)
+- [Phosphor Icons](https://phosphoricons.com)
+- Fonts: Cabinet Grotesk (display), Geist and Geist Mono (body)
+- Deployed on [Netlify](https://www.netlify.com); every push to `main` redeploys
+
+SEO: page metadata, Open Graph share image, Person structured data, sitemap and robots.txt, all generated from `src/app`.
+
+## Run locally
+
+Requires Node.js 20 or later.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build   # production build
+npm run lint    # lint checks
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Where to edit things
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| To change | Edit |
+| --- | --- |
+| Site URL, email, LinkedIn, page title and description | `src/lib/site.ts` |
+| Section content | `src/components/` (one file per section) |
+| Colours and dark theme | `src/app/globals.css` |
+| Share image and icon | `src/app/opengraph-image.tsx`, `src/app/icon.tsx` |
+| Resume download | replace `public/MadhavPande_Resume.pdf` |
