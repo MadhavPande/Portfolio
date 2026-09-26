@@ -2,9 +2,10 @@
 
 import { useEffect } from "react";
 
-// In-page links jump with a slide-style "push" (like PowerPoint's Push transition)
-// instead of scrolling through every section in between. Uses the View Transitions API;
-// unsupported browsers and reduced-motion visitors keep the normal anchor behaviour.
+// Leaving the hero (or returning to it) uses a slide-style "push", like PowerPoint's
+// Push transition. Jumps between other sections keep the normal smooth scroll.
+// Uses the View Transitions API; unsupported browsers and reduced-motion visitors
+// keep the normal anchor behaviour.
 export function PageTransitions() {
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
@@ -22,6 +23,12 @@ export function PageTransitions() {
         ? target.getBoundingClientRect().top + window.scrollY - parseFloat(getComputedStyle(target).scrollMarginTop || "0")
         : 0;
       if (Math.abs(destination - window.scrollY) < 4) return;
+
+      const hero = document.querySelector<HTMLElement>("[data-hero]");
+      if (!hero) return;
+      const onHero = hero.getBoundingClientRect().bottom > window.innerHeight / 2;
+      const toHero = destination < hero.offsetTop + hero.offsetHeight / 2;
+      if (!onHero && !toHero) return;
 
       event.preventDefault();
       const root = document.documentElement;

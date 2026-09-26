@@ -6,7 +6,7 @@ import { Button, buttonClass, Container } from "./ui";
 
 export function Hero() {
   return (
-    <section className="flex min-h-[calc(100dvh-4rem)] items-center py-14 md:py-20">
+    <section data-hero className="flex min-h-[calc(100dvh-4rem)] items-center bg-hero py-14 md:py-20">
       <Container className="grid grid-cols-1 items-center gap-14 md:grid-cols-12 md:gap-10">
         <div className="md:col-span-7">
           <Reveal>

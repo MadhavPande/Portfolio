@@ -11,6 +11,7 @@
   --accent: #2446d8;
   --accent-ink: #2446d8;
   --accent-soft: #dfe5fb;
+  --hero: #d8e0fb;
   --on-accent: #f4f6ff;
   color-scheme: light;
 }
@@ -25,6 +26,7 @@
   --accent: #3551e0;
   --accent-ink: #8fa1ff;
   --accent-soft: #151b36;
+  --hero: #121a3a;
   --on-accent: #f4f6ff;
   color-scheme: dark;
 }
@@ -38,6 +40,7 @@
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-accent-soft: var(--accent-soft);
+  --color-hero: var(--hero);
   --color-on-accent: var(--on-accent);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

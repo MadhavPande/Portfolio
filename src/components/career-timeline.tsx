@@ -55,12 +55,12 @@ export function CareerTimeline() {
             transition={t(e.delay)}
           >
             {e.promotion ? (
-              <span className="-mt-1 grid size-[30px] shrink-0 place-items-center rounded-full border-2 border-bg bg-accent text-on-accent">
+              <span className="-mt-1 grid size-[30px] shrink-0 place-items-center rounded-full border-2 border-hero bg-accent text-on-accent">
                 <ArrowUp size={14} weight="bold" />
               </span>
             ) : (
               <span className="grid size-[30px] shrink-0 -translate-y-1 place-items-center">
-                <span className="size-4 rounded-full border-[3px] border-fg bg-bg" />
+                <span className="size-4 rounded-full border-[3px] border-fg bg-hero" />
               </span>
             )}
             <div className="-mt-2">
