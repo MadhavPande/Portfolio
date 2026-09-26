@@ -63,6 +63,49 @@ body {
   background-size: 14px 14px;
 }
 
+/* Push transition for in-page links (see PageTransitions). The nav is its own
+   layer so it stays put while the page underneath slides. */
+.site-nav {
+  view-transition-name: site-nav;
+}
+
+::view-transition-old(site-nav),
+::view-transition-new(site-nav) {
+  animation: none;
+}
+
+html[data-vt="up"]::view-transition-old(root) {
+  animation: 0.65s cubic-bezier(0.65, 0, 0.35, 1) both vt-push-out-up;
+}
+html[data-vt="up"]::view-transition-new(root) {
+  animation: 0.65s cubic-bezier(0.65, 0, 0.35, 1) both vt-push-in-up;
+}
+html[data-vt="down"]::view-transition-old(root) {
+  animation: 0.65s cubic-bezier(0.65, 0, 0.35, 1) both vt-push-out-down;
+}
+html[data-vt="down"]::view-transition-new(root) {
+  animation: 0.65s cubic-bezier(0.65, 0, 0.35, 1) both vt-push-in-down;
+}
+
+@keyframes vt-push-out-up {
+  to { transform: translateY(-100%); }
+}
+@keyframes vt-push-in-up {
+  from { transform: translateY(100%); }
+}
+@keyframes vt-push-out-down {
+  to { transform: translateY(100%); }
+}
+@keyframes vt-push-in-down {
+  from { transform: translateY(-100%); }
+}
+
+/* Content arriving by a push is shown fully, not mid-way through its scroll reveal. */
+html[data-vt] [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

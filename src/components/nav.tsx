@@ -11,7 +11,7 @@ const links = [
 
 export function Nav() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line/60 bg-bg/80 backdrop-blur-md">
+    <header className="site-nav sticky top-0 z-40 border-b border-line/60 bg-bg/80 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between">
         <a href="#" className="font-display text-xl font-bold tracking-[-0.01em]">
           Madhav Pande
